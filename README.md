@@ -1,1 +1,1 @@
-# project-devops-myapp
+This project implements a GitOps-based CI/CD workflow using GitHub Actions and Argo CD. A single-node K3s cluster is used with separate namespaces for staging and production. Infrastructure configuration is managed via Ansible, while application deployment is fully GitOps-driven.
