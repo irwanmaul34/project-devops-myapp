@@ -46,7 +46,7 @@ jobs:
       - name: Update GitOps repo with new image digest
         run: |
           git clone https://x-access-token:${{ secrets.GITOPS_TOKEN }}@github.com/irwanmaul34/project-devops-gitops.git
-          cd gitops
+          cd project-devops-gitops
 
           sed -i "s|image: .*|image: irwan34/python-app@${{ steps.docker_build.outputs.digest }}|" production/deployment.yaml
 
