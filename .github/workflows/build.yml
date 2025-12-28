@@ -35,3 +35,11 @@ jobs:
             irwan34/python-app:latest
             irwan34/python-app:1.0.0
             irwan34/python-app:${{ github.sha }}
+
+      - name: Show image digest
+        run: |
+          echo "================================"
+          echo "Docker Image Digest:"
+          echo "${{ steps.docker_build.outputs.digest }}"
+          echo "================================"
+
