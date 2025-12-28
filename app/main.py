@@ -8,7 +8,7 @@ app = FastAPI()
 def root():
     return {
         "service": "myapp",
-        "message": "Hello from DevOps simple microservice guys 🚀",
+        "message": "Hello from DevOps simple microservice mantap 🚀",
         "hostname": socket.gethostname(),
         "env": os.getenv("ENVIRONMENT", "unknown")
     }
