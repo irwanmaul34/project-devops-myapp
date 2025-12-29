@@ -59,8 +59,9 @@ jobs:
 
       - name: Update staging image in GitOps repo
         run: |
-          git clone https://${{ secrets.GITOPS_TOKEN }}@github.com/irwanmaul34/project-devops-gitops.git
-          cd project-devops-gitops/staging
+          rm -rf gitops
+          git clone https://${{ secrets.GITOPS_TOKEN }}@github.com/irwanmaul34/project-devops-gitops.git gitops
+          cd gitops/staging
 
           sed -i "s|image:.*|image: irwan34/python-app:${{ github.sha }}|" deployment.yaml
 
