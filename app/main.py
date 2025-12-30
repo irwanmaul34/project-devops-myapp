@@ -15,4 +15,4 @@ def root():
 
 @app.get("/health")
 def health():
-    return {"status": "ok"}
+    return Response(status_code=500)
