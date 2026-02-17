@@ -8,5 +8,5 @@ def data():
     return {
         "service": "api-service",
         "hostname": socket.gethostname(),
-        "value": 42
+        "value": 43
     }
