@@ -21,11 +21,6 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.6);
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
         .status {
             padding: 12px;
             border-radius: 8px;
@@ -34,13 +29,8 @@
             font-weight: bold;
         }
 
-        .ok {
-            background: #16a34a;
-        }
-
-        .down {
-            background: #dc2626;
-        }
+        .ok { background: #16a34a; }
+        .down { background: #dc2626; }
 
         .data {
             background: #020617;
@@ -56,14 +46,36 @@
 <div class="card">
     <h1>🚀 Microservice UI</h1>
 
-    <div class="status {{ 'ok' if status == 'OK' else 'down' }}">
-        {{ status }}
+    <div id="status" class="status">
+        Checking...
     </div>
 
-    <div class="data">
-        {{ data }}
+    <div id="data" class="data">
+        Loading data...
     </div>
 </div>
+
+<script>
+fetch("/api/data")
+    .then(response => {
+        if (!response.ok) throw new Error("API Down");
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById("status").innerText = "OK";
+        document.getElementById("status").classList.add("ok");
+
+        document.getElementById("data").innerText =
+            "Service: " + data.service + "\n" +
+            "Hostname: " + data.hostname + "\n" +
+            "Value: " + data.value;
+    })
+    .catch(error => {
+        document.getElementById("status").innerText = "DOWN";
+        document.getElementById("status").classList.add("down");
+        document.getElementById("data").innerText = "Cannot reach API";
+    });
+</script>
 
 </body>
 </html>
