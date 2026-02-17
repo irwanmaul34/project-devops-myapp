@@ -3,7 +3,7 @@ import socket
 
 app = FastAPI()
 
-@app.get("/data")
+@app.get("/api/data")
 def data():
     return {
         "service": "api-service",
