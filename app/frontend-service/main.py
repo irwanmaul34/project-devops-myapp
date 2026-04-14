@@ -5,7 +5,7 @@ import requests
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
-API_SERVICE_URL = "http://api-service/api/data"
+API_SERVICE_URL = "http://api-service/data"
 
 @app.get("/")
 def home(request: Request):
@@ -20,8 +20,8 @@ def home(request: Request):
         status = "API SERVICE DOWN"
 
     return templates.TemplateResponse(
-        name="index.html",
-        context={
+        "index.html",
+        {
             "request": request,
             "status": status,
             "data": data
