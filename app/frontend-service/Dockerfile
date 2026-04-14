@@ -1,7 +1,7 @@
 FROM python:3.11-slim
 
 WORKDIR /app
-RUN pip install fastapi uvicorn requests jinja2
+RUN pip install fastapi uvicorn requests jinja2 httpx
 
 COPY main.py .
 COPY templates templates
