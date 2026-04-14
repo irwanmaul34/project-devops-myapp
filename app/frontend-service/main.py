@@ -5,7 +5,7 @@ import requests
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
-API_SERVICE_URL = "http://api-service/data"
+API_SERVICE_URL = "http://api-service-wrong/data"
 
 @app.get("/")
 def home(request: Request):
