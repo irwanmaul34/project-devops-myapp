@@ -1,30 +1,12 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
-import httpx
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
-API_SERVICE_URL = "http://api-service/api/data"
-
 @app.get("/")
-async def home(request: Request):
-    status = "OK"
-    data = None
-
-    try:
-        async with httpx.AsyncClient(timeout=5) as client:
-            r = await client.get(API_SERVICE_URL)
-            r.raise_for_status()
-            data = r.json()
-    except Exception:
-        status = "API SERVICE DOWN"
-
+def home(request: Request):
     return templates.TemplateResponse(
         "index.html",
-        {
-            "request": request,
-            "status": status,
-            "data": data
-        }
+        {"request": request}
     )
