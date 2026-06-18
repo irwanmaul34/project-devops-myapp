@@ -9,12 +9,15 @@ API_SERVICE_URL = "http://service-api/api/data"
 
 @app.get("/")
 def home(request: Request):
+
     status = "OK"
     data = {}
 
     try:
         r = requests.get(API_SERVICE_URL, timeout=5)
+        r.raise_for_status()
         data = r.json()
+
     except Exception:
         status = "API SERVICE DOWN"
 

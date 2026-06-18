@@ -1,81 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Microservices Dashboard</title>
+
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             background: #0f172a;
             color: #e5e7eb;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         .card {
-            background: #020617;
+            width: 450px;
+            background: #111827;
             padding: 30px;
             border-radius: 12px;
-            width: 380px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.6);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         .status {
             padding: 12px;
             border-radius: 8px;
-            margin-bottom: 15px;
             text-align: center;
             font-weight: bold;
+            margin-bottom: 20px;
         }
 
-        .ok { background: #16a34a; }
-        .down { background: #dc2626; }
+        .ok {
+            background-color: #16a34a;
+            color: white;
+        }
+
+        .down {
+            background-color: #dc2626;
+            color: white;
+        }
 
         .data {
-            background: #020617;
-            padding: 12px;
-            border: 1px solid #1e293b;
+            background: #1f2937;
+            padding: 15px;
             border-radius: 8px;
-            font-family: monospace;
+            border: 1px solid #374151;
+        }
+
+        .row {
+            margin-bottom: 10px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #93c5fd;
+        }
+
+        .value {
+            color: #f8fafc;
         }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <h1>🚀 Microservice UI</h1>
 
-    <div id="status" class="status">
-        Checking...
+    <h1>🚀 Microservice Dashboard</h1>
+
+    {% if status == "OK" %}
+        <div class="status ok">
+            API SERVICE UP
+        </div>
+    {% else %}
+        <div class="status down">
+            API SERVICE DOWN
+        </div>
+    {% endif %}
+
+    <div class="data">
+
+        <div class="row">
+            <span class="label">Service:</span>
+            <span class="value">
+                {{ data.get('service', '-') }}
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="label">Hostname:</span>
+            <span class="value">
+                {{ data.get('hostname', '-') }}
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="label">Value:</span>
+            <span class="value">
+                {{ data.get('value', '-') }}
+            </span>
+        </div>
+
     </div>
 
-    <div id="data" class="data">
-        Loading data...
-    </div>
 </div>
-
-<script>
-fetch("/api/data")
-    .then(response => {
-        if (!response.ok) throw new Error("API Down");
-        return response.json();
-    })
-    .then(data => {
-        document.getElementById("status").innerText = "OK";
-        document.getElementById("status").classList.add("ok");
-
-        document.getElementById("data").innerText =
-            "Service: " + data.service + "\n" +
-            "Hostname: " + data.hostname + "\n" +
-            "Value: " + data.value;
-    })
-    .catch(error => {
-        document.getElementById("status").innerText = "DOWN";
-        document.getElementById("status").classList.add("down");
-        document.getElementById("data").innerText = "Cannot reach API";
-    });
-</script>
 
 </body>
 </html>
