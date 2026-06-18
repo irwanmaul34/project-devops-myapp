@@ -19,7 +19,7 @@ def home(request: Request):
         data = r.json()
 
     except Exception:
-        status = "API SERVICE DOWN"
+        status = "API SERVICE DOWN!"
 
     return templates.TemplateResponse(
         "index.html",
